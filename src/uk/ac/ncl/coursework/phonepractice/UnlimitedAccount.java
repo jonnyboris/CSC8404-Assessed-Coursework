@@ -6,6 +6,25 @@ final class UnlimitedAccount extends PhoneAccountFactory {
 		super(phoneNumber, accountHolder);
 	}
 
+	public boolean credit(int amount) {
+		if(!isBlocked()) {
+			if (amount <= 0) {
+				throw new IllegalArgumentException("Amount must be positive: " + amount);
+			} else if (amount >= 30) {
+				amount = amount * 100;
+				updateBalance(getBalance() + amount);
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	/** 
+	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#chargeCall(uk.ac.ncl.coursework.phonepractice.PhoneNumber, int)
+	 */
 	@Override
 	public Call chargeCall(PhoneNumber toNumber, int duration) {
 		if(toNumber == null) {
@@ -54,9 +73,8 @@ final class UnlimitedAccount extends PhoneAccountFactory {
 			tempCost = tempDuration * 50;
 			cost += tempCost;
 		}
-		debit(cost);
+		updateBalance((getBalance() - cost));
 		return new Call(toNumber, duration, cost);
 	}
-	
 	
 }

@@ -61,7 +61,7 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 	
 	/* (non-Javadoc)
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#credit(int)
-	 */
+	 *
 	public boolean credit(int pounds) {
 		//TODO move implementation to subclasses
 		if(pounds < 0) {
@@ -73,7 +73,7 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 		} else {
 			return false;
 		}
-	}
+	}*/
 	
 	/* (non-Javadoc)
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#getBalance()
@@ -101,7 +101,13 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 		return blocked;
 	}
 	
-	void debit(int amount){ 
-		balance -= amount;
+	/**
+	 * Utility method to allow subclasses to
+	 * alter the account balance;
+	 * 
+	 * @param amount
+	 */
+	void updateBalance(int amount){ 
+		balance = amount;
 	}
 }

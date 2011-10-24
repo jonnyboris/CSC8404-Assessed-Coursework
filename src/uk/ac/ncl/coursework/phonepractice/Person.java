@@ -15,7 +15,6 @@ class Person {
 	/**
 	 * Instantiate a person with a given name
 	 * and date of birth
-	 *  
 	 * 
 	 * @param name The name of the person
 	 * @param dateOfBirth The date of birth of the person 

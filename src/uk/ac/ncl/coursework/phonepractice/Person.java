@@ -8,7 +8,7 @@ package uk.ac.ncl.coursework.phonepractice;
  */
 import java.util.Date;
 
-class Person {
+final class Person {
 	private final String name;
 	private final Date dateOfBirth;
 	

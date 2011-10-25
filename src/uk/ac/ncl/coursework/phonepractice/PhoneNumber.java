@@ -54,7 +54,7 @@ final class PhoneNumber {
 	}
 	
 	/** 
-	 * @see java.lang.Object#hashCode()
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object o) {
 		if(o == this) return true;

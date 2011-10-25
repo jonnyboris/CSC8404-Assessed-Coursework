@@ -1,5 +1,7 @@
 package uk.ac.ncl.coursework.phonepractice;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
  * Call - Represents a call placed from an account
  * 
@@ -61,5 +63,28 @@ final class Call {
 	 */
 	public long getTime() {
 		return time;
+	}
+	
+	/** 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object o) {
+		if(o == this) return true;
+		
+		if(!(o instanceof PhoneNumber)) return false;
+		Call c = (Call) o;
+		
+		if((time == c.getTime() && toNumber.equals(c.getPhoneNumber())) && (duration == c.getDuration() && cost == c.getCost())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/** 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return new HashCodeBuilder(2777, 1987).append(time).append(toNumber).append(duration).append(cost).toHashCode();
 	}
 }

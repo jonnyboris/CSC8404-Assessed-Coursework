@@ -1,5 +1,7 @@
 package uk.ac.ncl.coursework.phonepractice;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
@@ -9,11 +11,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * $date 17-10-2011
  *
  */
-final class Call {
+final class Call implements  Comparable<Call>{
 	private final PhoneNumber toNumber;
 	private final int duration;
 	private final int cost;
-	private final long time;
+	private final Date time;
 	
 	/**
 	 * Instantiate a call with a given phone number, duration and cost.
@@ -26,7 +28,7 @@ final class Call {
 		this.toNumber = new PhoneNumber(toNumber.getAreaCode(), toNumber.getLocalNumber());
 		this.duration = duration;
 		this.cost = cost;
-		this.time = System.currentTimeMillis();
+		this.time = new Date();
 	}
 	
 	/**
@@ -61,7 +63,7 @@ final class Call {
 	 * 
 	 * @return
 	 */
-	public long getTime() {
+	public Date getTime() {
 		return time;
 	}
 	
@@ -74,7 +76,7 @@ final class Call {
 		if(!(o instanceof PhoneNumber)) return false;
 		Call c = (Call) o;
 		
-		if((time == c.getTime() && toNumber.equals(c.getPhoneNumber())) && (duration == c.getDuration() && cost == c.getCost())) {
+		if((time.equals(c.getTime()) && toNumber.equals(c.getPhoneNumber())) && (duration == c.getDuration() && cost == c.getCost())) {
 			return true;
 		} else {
 			return false;
@@ -86,5 +88,20 @@ final class Call {
 	 */
 	public int hashCode() {
 		return new HashCodeBuilder(2777, 1987).append(time).append(toNumber).append(duration).append(cost).toHashCode();
+	}
+
+	@Override
+	public int compareTo(Call c) {
+		int comparison;
+		if (this == c) return 0;
+		
+		comparison = this.time.compareTo(c.time);
+		if(comparison != 0) {
+			return comparison;
+		}
+		
+		assert this.equals(c) : "Invalid comparison of phone objects. compareTo inconsistent with equals.";
+		
+		return 0;
 	}
 }

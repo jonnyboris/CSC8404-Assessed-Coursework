@@ -14,8 +14,8 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 	public static final String UNLIMITED = "unlimited";
 	
 	private int balance;
-	private Person accountHolder;
-	private PhoneNumber phoneNumber;
+	private final Person accountHolder;
+	private final PhoneNumber phoneNumber;
 	private boolean blocked;
 	private static final Map<PhoneNumber, PhoneAccount> phoneAccounts = new HashMap<PhoneNumber, PhoneAccount>();
 	
@@ -52,28 +52,28 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 		return pa;
 	}
 	
+	/**
+	 * Returns all phone accounts
+	 * 
+	 * @return an ArrayList of all PhoneAccounts
+	 */
+	public static Map<PhoneNumber, PhoneAccount> getAllAccounts(){
+		Map<PhoneNumber, PhoneAccount> defensiveCopyphoneAccounts = new HashMap<PhoneNumber, PhoneAccount>();
+		defensiveCopyphoneAccounts.putAll(phoneAccounts);
+		
+		return defensiveCopyphoneAccounts;
+	}
+	
+	public static PhoneAccount getAccount(PhoneNumber phoneNumber){
+			return phoneAccounts.get(phoneNumber);
+	}
+	
 	/* (non-Javadoc)
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#block()
 	 */
 	public void block() {
 		this.blocked = true;
 	}
-	
-	/* (non-Javadoc)
-	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#credit(int)
-	 *
-	public boolean credit(int pounds) {
-		//TODO move implementation to subclasses
-		if(pounds < 0) {
-			throw new IllegalArgumentException("Cannot credit a negative amount");
-		} else if(blocked != true) {
-			pounds = pounds  * 100;
-			balance += pounds;
-			return true;
-		} else {
-			return false;
-		}
-	}*/
 	
 	/* (non-Javadoc)
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#getBalance()

@@ -23,9 +23,10 @@ final class UnlimitedAccount extends PhoneAccountFactory {
 	}
 	
 	/** 
+	 * Charges a call at different rates depending on the balance of the account.
+	 * 
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#chargeCall(uk.ac.ncl.coursework.phonepractice.PhoneNumber, int)
 	 */
-	@Override
 	public Call chargeCall(PhoneNumber toNumber, int duration) {
 		if(toNumber == null) {
 			throw new IllegalArgumentException("toNumber cannot be null");

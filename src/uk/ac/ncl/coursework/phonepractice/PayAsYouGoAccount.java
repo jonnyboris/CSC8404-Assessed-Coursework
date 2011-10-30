@@ -20,7 +20,6 @@ final class PayAsYouGoAccount extends PhoneAccountFactory {
 		}
 	}
 
-	@Override
 	public Call chargeCall(PhoneNumber toNumber, int duration) {
 		int currentBalance = getBalance();
 		

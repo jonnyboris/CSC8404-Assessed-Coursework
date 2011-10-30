@@ -6,15 +6,10 @@ import org.junit.Test;
 
 public class PhoneNumberTest {
 
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented");
-	}
-
 	 @Test(expected = IllegalArgumentException.class)
 	public void testPhoneNumber() {
 		final PhoneNumber ph = new PhoneNumber(191, 2815532);
-		//ToDo check these are needed
+		
 		assertEquals(191, ph.getAreaCode());
 		assertEquals(2815532, ph.getLocalNumber());
 		
@@ -23,27 +18,58 @@ public class PhoneNumberTest {
 
 	@Test
 	public void testGetAreaCode() {
-		fail("Not yet implemented");
+		final PhoneNumber ph = new PhoneNumber(7928, 2815532);
+		assertEquals(7928, ph.getAreaCode());
 	}
 
 	@Test
 	public void testGetLocalNumber() {
-		fail("Not yet implemented");
+		final PhoneNumber ph = new PhoneNumber(7928, 2816476);
+		assertEquals(2816476, ph.getLocalNumber());
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		final PhoneNumber ph = new PhoneNumber(7928, 2816476);
+		assertEquals("7928 2816476", ph.toString());
 	}
 
+	/**
+	 * Test equals method for symmetry, reflexivity, transitivity
+	 * and Inequality
+	 * 
+	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		final PhoneNumber ph = new PhoneNumber(7928, 2816476);
+		final PhoneNumber phOne = new PhoneNumber(7928, 2816476);
+		final PhoneNumber phTwo = new PhoneNumber(7928, 2816476);
+		final PhoneNumber phThree = new PhoneNumber(7928, 5554444);
+		
+		assertTrue(ph.equals(phOne));
+		assertTrue(phOne.equals(ph));
+		
+		assertTrue(ph.equals(ph));
+		
+		assertTrue(ph.equals(phOne));
+		assertTrue(phOne.equals(phTwo));
+		assertTrue(ph.equals(phTwo));
+		
+		assertFalse(ph.equals(phThree));
 	}
 
+	/**
+	 * Tests that objects created with value of are created and 
+	 * have the correct values
+	 */
 	@Test
 	public void testValueOf() {
-		fail("Not yet implemented");
+		final PhoneNumber ph = new PhoneNumber(7928, 2816476);
+		String phString = ph.toString();
+		final PhoneNumber phFromString = PhoneNumber.valueOf(phString);
+		
+		assertTrue(ph.equals(phFromString));
+		assertEquals(phFromString.toString(), phString);
 	}
 
 }

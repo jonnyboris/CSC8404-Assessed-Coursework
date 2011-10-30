@@ -6,6 +6,7 @@ package uk.ac.ncl.coursework.phonecompany;
  * $date 17-10-2011
  *
  */
+import java.util.Calendar;
 import java.util.Date;
 
 final class Person {
@@ -20,6 +21,17 @@ final class Person {
 	 * @param dateOfBirth The date of birth of the person 
 	 */
 	Person(String name, Date dateOfBirth) {
+		if(name == null || name == "") {
+			throw new IllegalArgumentException("Name Can not be null");
+		}
+		
+		Calendar tempCal = Calendar.getInstance();
+		tempCal.setTime(dateOfBirth);
+		
+		if(tempCal.after(Calendar.getInstance())) {
+			throw new IllegalArgumentException("Date of birth cannot not be in the future");
+		}
+		
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 	}

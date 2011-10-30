@@ -25,6 +25,9 @@ final class Call implements  Comparable<Call>{
 	 * @param cost the cost of the call in pence
 	 */
 	Call(PhoneNumber toNumber, int duration, int cost) {
+		if(toNumber == null || duration == 0 || cost == 0) {
+			throw new IllegalArgumentException("Parameters can not be null or 0");
+		}
 		this.toNumber = new PhoneNumber(toNumber.getAreaCode(), toNumber.getLocalNumber());
 		this.duration = duration;
 		this.cost = cost;

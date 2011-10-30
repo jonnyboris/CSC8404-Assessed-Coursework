@@ -9,7 +9,10 @@ import org.junit.Test;
 
 public class PayAsYouGoAccountTest {
 
-	@Test
+	/**
+	 * Tests credit() getBalance(), getInstance()
+	 */
+	@Test(expected = IllegalArgumentException.class)
 	public void testCredit() {
 		final PhoneNumber pn = new PhoneNumber(7928, 2816476);	
 		Calendar dob  = Calendar.getInstance();
@@ -18,52 +21,80 @@ public class PayAsYouGoAccountTest {
 		
 		final PhoneAccount pa = PhoneAccountFactory.getInstance(pn, accountHolder, PhoneAccountFactory.PAY_AS_YOU_GO);
 		
-		//pa.c
+		pa.credit(1);
+		assertEquals(pa.getBalance(), 100);
+		
+		pa.credit(20);
+		assertEquals(pa.getBalance(), 2100);
+		
+		pa.credit(0);
+		pa.credit(-10);
 	}
 
+	/**
+	 * Test charge call, getInstance, getBalance and credit
+	 */
 	@Test
 	public void testChargeCall() {
-		fail("Not yet implemented");
+		final PhoneNumber pn = new PhoneNumber(7928, 2816486);	
+		Calendar dob  = Calendar.getInstance();
+		dob.set(1998, 9, 21);
+		Person accountHolder = new Person("Jonathan Fairfull", new Date(dob.getTimeInMillis()));
+		
+		final PhoneAccount pa = PhoneAccountFactory.getInstance(pn, accountHolder, PhoneAccountFactory.PAY_AS_YOU_GO);
+		pa.credit(1);
+		pa.chargeCall(new PhoneNumber(191, 2815545), 1);
+		assertEquals(80, pa.getBalance());
 	}
 
-	@Test
-	public void testGetInstance() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAllAccounts() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAccount() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * Tests block() and isBlocked() and credit when phone is blocked
+	 */
 	@Test
 	public void testBlock() {
-		fail("Not yet implemented");
+		final PhoneNumber pn = new PhoneNumber(7928, 2816486);	
+		Calendar dob  = Calendar.getInstance();
+		dob.set(1998, 9, 21);
+		Person accountHolder = new Person("Jonathan Fairfull", new Date(dob.getTimeInMillis()));
+		
+		final PhoneAccount pa = PhoneAccountFactory.getInstance(pn, accountHolder, PhoneAccountFactory.PAY_AS_YOU_GO);
+		
+		pa.block();
+		assertTrue(pa.isBlocked());
+		
+		assertTrue(!pa.credit(20));
 	}
 
-	@Test
-	public void testGetBalance() {
-		fail("Not yet implemented");
-	}
+	
 
+	/**
+	 * Tests person.equals(), and getHolder()
+	 */
 	@Test
 	public void testGetHolder() {
-		fail("Not yet implemented");
+		final PhoneNumber pn = new PhoneNumber(7928, 2222222);	
+		Calendar dob  = Calendar.getInstance();
+		dob.set(1998, 9, 21);
+		Person accountHolder = new Person("Jonathan Fairfull", new Date(dob.getTimeInMillis()));
+		
+		final PhoneAccount pa = PhoneAccountFactory.getInstance(pn, accountHolder, PhoneAccountFactory.PAY_AS_YOU_GO);
+		
+		assertTrue(accountHolder.equals(pa.getHolder()));
 	}
+
 
 	@Test
 	public void testGetNumber() {
-		fail("Not yet implemented");
+		final PhoneNumber pn = new PhoneNumber(7928, 2816486);	
+		Calendar dob  = Calendar.getInstance();
+		dob.set(1998, 9, 21);
+		Person accountHolder = new Person("Jonathan Fairfull", new Date(dob.getTimeInMillis()));
+		
+		final PhoneAccount pa = PhoneAccountFactory.getInstance(pn, accountHolder, PhoneAccountFactory.PAY_AS_YOU_GO);
+		
+		assertTrue(pn.equals(pa.getNumber()));
 	}
 
-	@Test
-	public void testIsBlocked() {
-		fail("Not yet implemented");
-	}
+
 
 }

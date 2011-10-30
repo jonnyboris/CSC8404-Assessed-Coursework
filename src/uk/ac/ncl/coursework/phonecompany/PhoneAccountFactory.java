@@ -13,7 +13,7 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 	 */
 	public static final String UNLIMITED = "unlimited";
 	
-	private int balance;
+	private int balance =0;
 	private final Person accountHolder;
 	private final PhoneNumber phoneNumber;
 	private boolean blocked = false;

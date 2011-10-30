@@ -9,6 +9,8 @@ package uk.ac.ncl.coursework.phonecompany;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 final class Person {
 	private final String name;
 	private final Date dateOfBirth;
@@ -54,6 +56,27 @@ final class Person {
 		return dateOfBirth;
 	}
 	
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object o) {
+		if(o == this) return true;
+		
+		if(!(o instanceof Person)) return false;
+			
+		Person p = (Person) o;
+		if(name.equals(p.getName()) && dateOfBirth.equals(p.getDate())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
+	/** 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return new HashCodeBuilder(1567, 1987).append(dateOfBirth).append(name).toHashCode();
+	}
 
 }

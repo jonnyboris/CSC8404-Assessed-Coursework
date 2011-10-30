@@ -4,17 +4,18 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 
 public class PayAsYouGoAccountTest {
-
+	private static final Logger LOG = Logger.getLogger("uk.ac.ncl.coursework");
 	/**
 	 * Tests credit() getBalance(), getInstance()
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCredit() {
-		final PhoneNumber pn = new PhoneNumber(7928, 2816476);	
+		final PhoneNumber pn = new PhoneNumber(7998, 2816476);	
 		Calendar dob  = Calendar.getInstance();
 		dob.set(1998, 9, 21);
 		Person accountHolder = new Person("Jonathan Fairfull", new Date(dob.getTimeInMillis()));
@@ -22,7 +23,9 @@ public class PayAsYouGoAccountTest {
 		final PhoneAccount pa = PhoneAccountFactory.getInstance(pn, accountHolder, PhoneAccountFactory.PAY_AS_YOU_GO);
 		
 		pa.credit(1);
-		assertEquals(pa.getBalance(), 100);
+		
+		LOG.info(" --------- " + pa.getBalance());
+		assertEquals(100, pa.getBalance());
 		
 		pa.credit(20);
 		assertEquals(pa.getBalance(), 2100);
@@ -36,7 +39,7 @@ public class PayAsYouGoAccountTest {
 	 */
 	@Test
 	public void testChargeCall() {
-		final PhoneNumber pn = new PhoneNumber(7928, 2816486);	
+		final PhoneNumber pn = new PhoneNumber(9928, 2816486);	
 		Calendar dob  = Calendar.getInstance();
 		dob.set(1998, 9, 21);
 		Person accountHolder = new Person("Jonathan Fairfull", new Date(dob.getTimeInMillis()));

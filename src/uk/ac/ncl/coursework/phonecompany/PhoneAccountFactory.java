@@ -2,6 +2,7 @@ package uk.ac.ncl.coursework.phonecompany;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public abstract class PhoneAccountFactory implements PhoneAccount {
 	/**
@@ -12,6 +13,8 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 	 * Unlimited calls account type
 	 */
 	public static final String UNLIMITED = "unlimited";
+	
+	private static final Logger LOG = Logger.getLogger("uk.ac.ncl.coursework");
 	
 	private int balance =0;
 	private final Person accountHolder;
@@ -42,9 +45,12 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 		
 		if(type.equals(PAY_AS_YOU_GO)) {
 			pa = new PayAsYouGoAccount(phoneNumber, accountHolder);
+			LOG.info("Pay as you go account created");
 		} else if(type.equals(UNLIMITED))  {
 			pa = new UnlimitedAccount(phoneNumber, accountHolder);
+			LOG.info("Unlimited account created");
 		} else {
+			LOG.warning("Invalid phone account type: " + type);
 			throw new IllegalArgumentException("Invalid Phone Account type: " + type);
 		}
 		

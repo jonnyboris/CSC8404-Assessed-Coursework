@@ -1,5 +1,9 @@
 package uk.ac.ncl.coursework.phonecompany;
 
+import java.rmi.Remote;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -12,6 +16,7 @@ public class PhoneManager {
 	private static int CURRENT_LOCAL_NUMBER = 100000;
 	
 	private static final Logger LOG = Logger.getLogger("uk.ac.ncl.coursework");
+	
 	/**
 	 * Issues a phone account to a given person.
 	 * 
@@ -96,7 +101,7 @@ public class PhoneManager {
 	 */
 	public boolean deleteAccount(PhoneNumber phoneNumber) {
 		return PhoneAccountFactory.removeAccount(phoneNumber);
-	}
+	} 
 	
 	private PhoneNumber getNewPhoneNumber(){
 		PhoneNumber pn = new PhoneNumber(areaCodes[CURRENT_AREA_CODE_INDEX], CURRENT_LOCAL_NUMBER);
@@ -111,6 +116,5 @@ public class PhoneManager {
 		}
 		
 		return pn;
-	}
-	
+	}	
 }

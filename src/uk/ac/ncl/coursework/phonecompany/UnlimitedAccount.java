@@ -1,7 +1,11 @@
 package uk.ac.ncl.coursework.phonecompany;
 
+import java.util.logging.Logger;
+
 final class UnlimitedAccount extends PhoneAccountFactory {
 
+	private static final Logger LOG = Logger.getLogger("uk.ac.ncl.coursework");
+	
 	UnlimitedAccount(PhoneNumber phoneNumber, Person accountHolder) {
 		super(phoneNumber, accountHolder);
 	}
@@ -9,6 +13,7 @@ final class UnlimitedAccount extends PhoneAccountFactory {
 	public boolean credit(int amount) {
 		if(!isBlocked()) {
 			if (amount <= 0) {
+				LOG.warning("Negative amount given");
 				throw new IllegalArgumentException("Amount must be positive: " + amount);
 			} else if (amount >= 30) {
 				amount = amount * 100;

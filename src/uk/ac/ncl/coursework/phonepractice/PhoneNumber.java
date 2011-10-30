@@ -23,7 +23,7 @@ final class PhoneNumber {
      * Or if <code> areaCode is not 3 or 4 characters or localNumber is not between 6 & 8 characters</code>
 	 */
 	PhoneNumber(int areaCode, int localNumber) {
-		if((areaCode > 100 && areaCode < 9999) && (localNumber > 100000 && localNumber < 99999999 )) {
+		if((areaCode > 100 && areaCode < 9999) && (localNumber >= 100000 && localNumber < 99999999 )) {
 			this.areaCode = areaCode;
 			this.localNumber = localNumber;
 		} else {

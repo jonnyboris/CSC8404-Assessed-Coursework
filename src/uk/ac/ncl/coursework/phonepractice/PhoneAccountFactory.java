@@ -16,7 +16,7 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 	private int balance;
 	private final Person accountHolder;
 	private final PhoneNumber phoneNumber;
-	private boolean blocked;
+	private boolean blocked = false;
 	private static final Map<PhoneNumber, PhoneAccount> phoneAccounts = new HashMap<PhoneNumber, PhoneAccount>();
 	
 	PhoneAccountFactory(PhoneNumber phoneNumber, Person accountHolder) {
@@ -64,39 +64,57 @@ public abstract class PhoneAccountFactory implements PhoneAccount {
 		return defensiveCopyphoneAccounts;
 	}
 	
+	/**
+	 * Returns the phone account for a given phone number
+	 * 
+	 * @param phoneNumber - the phone number of the account to be returned
+	 * @return PhoneAccount
+	 */
 	public static PhoneAccount getAccount(PhoneNumber phoneNumber){
 			return phoneAccounts.get(phoneNumber);
 	}
 	
-	/* (non-Javadoc)
+	public static boolean removeAccount(PhoneNumber phoneNumber) {
+		if(phoneAccounts.get(phoneNumber).isBlocked()) {
+			phoneAccounts.remove(phoneNumber);
+			return true;
+		} else {
+			return false;
+		}
+				
+	}
+	
+	/** 
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#block()
 	 */
 	public void block() {
 		this.blocked = true;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#getBalance()
 	 */
 	public int getBalance() {
 		return balance;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#getHolder()
 	 */
 	public Person getHolder(){
-		//TODO defnsive copy
-		return accountHolder;
+		return new Person(accountHolder.getName(), accountHolder.getDate());
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#getNumber()
 	 */
 	public PhoneNumber getNumber() {
 		return new PhoneNumber(phoneNumber.getAreaCode(), phoneNumber.getLocalNumber());
 	}
 	
+	/**
+	 * @see uk.ac.ncl.coursework.phonepractice.PhoneAccount#isBlocked()
+	 */
 	public boolean isBlocked(){
 		return blocked;
 	}
